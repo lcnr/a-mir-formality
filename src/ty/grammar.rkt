@@ -19,12 +19,12 @@
   ;; lifetime, etc)
   ;;
   ;; Overridden from formality-logic.
-  (ParameterKind ::= TyKind LtKind)
+  (ParameterKind ::= TyKind LtKind (CtKind Ty))
 
   ;; Parameter: value for a generic parameter
   ;;
   ;; Overridden from formality-logic.
-  (Parameter ::= Ty Lt)
+  (Parameter ::= Ty Lt Ct)
 
   ;; ANCHOR:Predicates
   ;; `Predicate` -- the atomic items that we can prove
@@ -99,6 +99,15 @@
   ;; Treat ABIs as opaque strings (for now, at least)
   (Abi ::= string)
 
+  ;; Ct -- Rust constants in the type system.
+  ;;
+  ;; TODO: Also add non-leaf things here.
+  (Ct ::= (Ty CtKind))
+  (CtKind ::=
+      (Leaf number)          ; A value tree leaf.
+      VarId                  ; Bound, existential (inference), or universal (placeholder) variable.
+      )
+
   ;; Lt -- Rust lifetimes
   ;;
   ;; Very similar to types `Ty` in terms of how they are represented
@@ -124,7 +133,7 @@
   (VarInequality ::= (Parameters_lb <= VarId <= Parameters_ub))
 
   ;; Scalars -- numbers, booleans
-  (ScalarId ::= i8 u8 i16 u16 i32 u32 i64 u64 i128 u128 bool)
+  (ScalarId ::= i8 u8 i16 u16 i32 u32 i64 u64 i128 u128 isize usize bool)
 
   ;; Identifiers -- these are all equivalent, but we give them fresh names to help
   ;; clarify their purpose

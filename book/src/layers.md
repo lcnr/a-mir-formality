@@ -27,7 +27,7 @@ like `forall<T> { Implemented(T: Eq) => HasImpl(Vec<T>: Eq) }`.
 (The distinction between `HasImpl` and `Implemented` is covered below.)
 
 This layer also defines the well-formedness checks for those items.
-For example, `struct Foo { f1: T1 }` is well-formed if `T` is well-formed.
+For example, `struct Foo { f1: T }` is well-formed if `T` is well-formed.
 
 ## The MIR type system layer (`formality-mir`)
 
